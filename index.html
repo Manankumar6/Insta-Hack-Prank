@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      background-color: black;
+      display: flex;
+    }
+
+    #text {
+      width: 500px;
+      height: 700px;
+      border: 2px solid green;
+      color: rgb(4, 196, 4);
+      font-size: 30px;
+      display: flex;
+      background-color: black;
+      flex-direction: column-reverse;
+      flex-wrap: wrap;
+      overflow: hidden;
+
+    }
+
+    #text_2 {
+      width: 500px;
+      height: 700px;
+      border: 2px solid green;
+      color: rgb(4, 196, 4);
+      font-size: 30px;
+      display: flex;
+      background-color: black;
+      flex-direction: column-reverse;
+      flex-wrap: wrap;
+      overflow: hidden;
+
+    }
+
+    .content {
+      width: 500px;
+      height: 700px;
+      border: 2px solid rgb(39, 213, 0);
+      display: flex;
+      justify-content: center;
+      color: rgb(242, 10, 10);
+      font-size: 30px;
+
+      position: relative;
+      left: 1px;
+
+    }
+
+    .content img {
+      width: 500px;
+      height: 250px;
+    }
+
+    .result {
+      border: 2px solid rgb(255, 0, 0);
+      width: 490px;
+      height: 390px;
+      display: flex;
+      background-color: rgba(0, 0, 0, 0.316);
+      flex-direction: column-reverse;
+      position: absolute;
+      top: 255px;
+      overflow: hidden;
+    }
+
+
+    .btn {
+      position: absolute;
+      bottom: 0;
+      /* border: 2px solid green; */
+
+    }
+
+    input {
+      width: 400px;
+      padding: 12px;
+      background-color: rgb(0, 0, 0);
+      color: rgb(1, 232, 1);
+      border: 2px solid green;
+    }
+
+    button {
+      width: 80px;
+      padding: 10px;
+      background-color: green;
+      color: white;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .alert {
+      width: 490px;
+      height: 390px;
+      border: 3px solid red;
+      position: absolute;
+      bottom: 77px;
+      color: rgb(253, 79, 79);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      visibility: hidden;
+      background-color: black;
+      flex-direction: column;
+    }
+
+
+
+    .active {
+      visibility: visible;
+    }
+
+    .color1 {
+      color: red;
+    }
+
+    .color2 {
+      color: blue;
+    }
+
+    .color3 {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div id="meg">
+      <p id="text"></p>
+    </div>
+    <div class="content">
+
+
+      <img src="hacking.jpeg" alt="">
+      <div class="result" id="result">
+
+      </div>
+      <div class="btn">
+        <input type="text" id="input_result" placeholder="Enter Your Account Details">
+        <button type="button" id="btn" onclick="result_show(); show_alert() ">Enter</button>
+      </div>
+    </div>
+    <div id="meg">
+      <p id="text_2"></p>
+    </div>
+    <div id="alert_msg" class="alert">
+      <h2>Hacked Successfully</h2>
+    </div>
+  </div>
+
+
+
+
+  <script>
+    let text = document.getElementById("text")
+    let text_2 = document.getElementById("text_2")
+    let alert_msg = document.getElementById("alert_msg")
+    let btn = document.getElementById("btn")
+
+
+
+    let a = [
+      "01010101010101010101101001101011011",
+      "110101010100101101010101010101010111",
+      "101010010011010111010101010110101010",
+      "010101010101010101011010011010101011",
+      "110101010100101101010101010101010111",
+      "101010010011010111010101010110101010",
+      "010101010101010101011010011010101011",
+      "110101010100101101010101010101010111",
+      "101010010011010111010101010110101010",
+      "010101010101010101011010011010101011",
+      "110101010100101101010101010101101111",
+      "101010010011010111010101010101011011",
+      "010101010101010101011010101010110110",
+      "110101010100101101010101010101101110",
+      "101010010011010111010101101010110110",
+      "010101010101010101011010101010110110",
+      "110101010100101101010101101010110110",
+      "101010010011010111010101101010110110",
+      "010101010101010101011010101010110110",
+      "110101010100101101010101010110111010",
+      "101010010011010111010101010110111010",
+      "010101010101010101011010101011011101",
+      "110101010100101101010110101011011101",
+      "1010100100110101110101010101011011111",
+      "0101010101010101010110101010101101101",
+      "1101010101001011010101011010101101101",
+      "1010100100110101110101011010101101101"
+    ]
+
+
+
+
+    const sleep = async (second) => {
+      return new Promise((resolve, reject) => {
+        setInterval(() => {
+          resolve(true)
+
+        }, second * 100)
+      })
+    }
+    const showmessage = async (message) => {
+      await sleep(1)
+      text.innerHTML = text.innerHTML + message + "<br>"
+      text_2.innerHTML = text_2.innerHTML + message + "<br>"
+    }
+    async function display() {
+      for (let i = 0; i < a.length; i++) {
+
+
+        await showmessage(a[i])
+      }
+    }
+    setInterval(display, 1000)
+
+
+    function result_show() {
+
+      let result = document.getElementById("result")
+      let input = document.getElementById("input_result").value
+      let hack = [
+        "Initilizing Hacking Tools",
+        "Connecting To The Instagram Server..",
+        "Connecting To Server 1.....",
+        "Connection Failed Retyring",
+        "Cennecting Successfully////",
+        "Username",
+        "Fetched User Name...",
+        "Fetching Hacking Modules....",
+        "Connecting to moddules....trying...",
+        "Modules intilizing cracking tool...",
+        "Password Matching..........",
+        "Failed............retrying",
+        "Server Error............",
+        "Connecting Server 2..",
+        "Loading........................",
+        "Matched Found...Please wait.......",
+
+      ]
+
+      const sleep_meg = async (second) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(true)
+          }, second * 1000)
+        })
+      }
+      const show_meg = async (message) => {
+        await sleep_meg(1)
+        result.innerHTML = result.innerHTML + message + "<br>"
+
+      }
+
+      async function mainfun(callback) {
+        if (input != "") {
+          result.innerHTML = ""
+          hack.push(input + "hacked!!!!!!!!")
+          for (let i = 0; i < hack.length; i++) {
+            hack.splice(5, 1, input + " find account")
+            await show_meg(hack[i])
+          }
+          callback()
+
+        } else {
+          result.innerHTML = "Please Enter UserID"
+        }
+
+      }
+
+
+      let dots = 0;
+
+      function show_alert() {
+        alert_msg.classList.add("active");
+        // alert_msg.innerHTML += "User Id: " + input
+
+
+        alert_msg.innerHTML = `loading ${'.......'.slice(0, dots)}`;
+        dots = (dots + 1) % 4; // Use 11 to loop through dots 0 to 10
+
+
+        timeoutid = setTimeout(show_alert, 500); // Call the function again after 500ms
+        setTimeout(show_result, 1000)
+
+
+      }
+
+      function show_result() {
+        setTimeout(() => {
+
+          clearTimeout(timeoutid)
+
+          alert_msg.innerHTML = "<h2>Hacked Successfully.</h2>" + "<br>" + "User Id:" + input + "<br>" + "Password : ********" + "<br>" + "<h10>Copy and Paste Password</h10> "
+        }, 3000)
+
+      }
+
+
+      mainfun(show_alert)
+    }
+
+
+
+  </script>
+</body>
+
+</html>
